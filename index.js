@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://sop-formm.netlify.app/"],
+    origin: ["https://sop-formm.netlify.app/"],
   })
 );
 
@@ -75,7 +75,6 @@ app.post("/submit-form", async (req, res) => {
       htmlContent: html,
     }),
   });
-  fs.writeFile("./index.html", Buffer.from(html));
   res.status(200).send("form data received successfully");
 });
 
