@@ -20,6 +20,10 @@ app.use(
   })
 );
 
+app.get("/", (req, res) => {
+  res.json({ message: "hello world" });
+});
+
 app.post("/submit-form", async (req, res) => {
   const { email, fullName, ...restProp } = req.body || {};
 
