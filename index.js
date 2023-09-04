@@ -14,11 +14,19 @@ console.log(process.env.SENDGRID_API_KEY);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(
-  cors({
-    origin: ["https://sop-formm.netlify.app/"],
-  })
-);
+
+var whitelist = ["http://localhost:5173", "https://sop-formm.netlify.app"];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
   res.json({ message: "hello world" });
